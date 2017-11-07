@@ -18,7 +18,7 @@ public class Driver {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -40,6 +40,30 @@ public class Driver {
                 new AdminControlPanel().setVisible(true);
             }
         });
+        
+        User u1 = new User("Brandon");
+        User u2 = new User("Luis");
+        
+        u1.addFollowers(u2);
+        u1.addNewsFeed("Brandon: hello there");
+        System.out.println("u1 list");
+        u1.printFeed();
+        System.out.println("u2 list");
+        u2.printFeed();
+        u2.addNewsFeed("Luis: Hi");
+        u2.addFollowers(u1);
+        u2.addNewsFeed("Luis: Hello");
+        System.out.println();
+        u2.printFeed();
+        System.out.println();
+        u1.printFeed();
+        
+        UserGroup ug = new UserGroup("Group1");
+        ug.addUser(u2);
+        ug.addUser(u1);
+        System.out.println(ug.getUsers());
+        
+        
     }
     
 }
