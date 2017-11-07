@@ -21,14 +21,37 @@ public class UserGroupManager {
     
     public void addUser(String s) {
         User user = new User(s);
-        ug.addUser(user);
+        addUser(user);
+    }
+    
+    public void addUser(User u) {
+        ug.addUser(u);
         userCount++;
     }
     
     public void addUserGroup(String s) {
         UserGroup group = new UserGroup(s);
-        ug.addUserGroup(group);
+        addUserGroup(group);
+    }
+    
+    public void addUserGroup(UserGroup ug) {
+        ug.addUserGroup(ug);
         groupCount++;
+    }
+    
+    public User findUser(String s) {
+        for (User u : ug.getUsers()) {
+            if (u.getUniqueID().equals(s)) {
+                return u;
+            }
+        }
+        if (!ug.getUserGroups().isEmpty()) {
+            for (UserGroup ug : ug.getUserGroups()) {
+                findUser(s);
+            }
+        }
+        return null;
+
     }
     
 }
