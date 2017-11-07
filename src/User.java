@@ -12,21 +12,32 @@ import java.util.List;
  *
  * @author Brandon
  */
-public class User {
+public class User implements Subject,Observer{
     
     private String uniqueID;
     private List<User> followers;
     private List<User> followings;
     private List<String> newsFeed;
+    private static int observerIDTracker = 0;
+    private int observerID;
+    private Subject user;
+    
     
     public User(String ID){
         uniqueID = ID;
         followers = new ArrayList();
         followings = new ArrayList();
         newsFeed = new ArrayList();
+        this.observerID = observerIDTracker++;
+        
     }
     
     public void addNewsFeed(String s) {
+        newsFeed.add(uniqueID + ": " + s);
+        NotifyObservers();
+    }
+    
+    public void addFeed(String s) {
         newsFeed.add(s);
     }
     
@@ -69,7 +80,29 @@ public class User {
     public void setNewsFeed(List<String> newsFeed) {
         this.newsFeed = newsFeed;
     }
+
+    @Override
+    public void Attach(Observer observer) {
+        addFollowers((User) observer);
+    }
+
+    @Override
+    public void NotifyObservers() {
+        for (Observer observer : followers) {
+            observer.update(newsFeed.get(newsFeed.size() - 1));
+        }
+    }
+
+    @Override
+    public void update(String s) {
+        addFeed(s);
+        printFeed();
+        }
     
-    
+    public void printFeed(){
+        for(String s : newsFeed) {
+            System.out.println(s);
+        }
+    }
     
 }
