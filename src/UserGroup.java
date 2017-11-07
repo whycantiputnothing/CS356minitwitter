@@ -31,7 +31,7 @@ public class UserGroup {
             return true;
         }
     }
-    
+
     public boolean addUserGroup(UserGroup u) {
         if (userGroups.contains(u)) {
             return false;
@@ -52,9 +52,21 @@ public class UserGroup {
     public List<UserGroup> getUserGroups() {
         return userGroups;
     }
-    
-    
-    
-    
 
+    public User findUser(String s) {
+        for (User u : users) {
+            if (u.getUniqueID().equals(s)) {
+                return u;
+            }
+            if (!userGroups.isEmpty()) {
+                for(UserGroup ug : userGroups){
+                    ug.findUser(s);
+                }
+            }
+        }
+        return null;
+
+
+    }
+    
 }
