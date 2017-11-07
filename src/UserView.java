@@ -1,3 +1,7 @@
+
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,12 +13,15 @@
  * @author Brandon-PC
  */
 public class UserView extends javax.swing.JFrame {
+    
+    private User user;
 
     /**
      * Creates new form UserView
      */
     public UserView() {
         initComponents();
+        user = new User("Brandon");
     }
 
     /**
@@ -48,6 +55,11 @@ public class UserView extends javax.swing.JFrame {
         });
 
         bFollowUser.setText("Follow User");
+        bFollowUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bFollowUserActionPerformed(evt);
+            }
+        });
 
         jTextField2.setText("Tweet Message");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -57,6 +69,11 @@ public class UserView extends javax.swing.JFrame {
         });
 
         bPostTweet.setText("Post Tweet");
+        bPostTweet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPostTweetActionPerformed(evt);
+            }
+        });
 
         TextAreaNewsFeed.setColumns(20);
         TextAreaNewsFeed.setRows(5);
@@ -86,8 +103,8 @@ public class UserView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bFollowUser, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))))
+                        .addComponent(bFollowUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,6 +135,30 @@ public class UserView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    private void bFollowUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFollowUserActionPerformed
+        // TODO add your handling code here:
+        User u = new User(jTextField1.getText());
+        user.addFollowers(u);
+        TextAreaFollowers.append(jTextField1.getText() + "\n");
+    }//GEN-LAST:event_bFollowUserActionPerformed
+
+    private void bPostTweetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPostTweetActionPerformed
+        // TODO add your handling code here:
+        user.addNewsFeed(jTextField2.getText());
+        TextAreaNewsFeed.append(jTextField2.getText() + "\n");
+    }//GEN-LAST:event_bPostTweetActionPerformed
+
+    private void displayText(){
+        TextAreaFollowers = new JTextArea();
+        TextAreaNewsFeed = new JTextArea();
+        for (User u : user.getFollowers()){
+            TextAreaFollowers.append(u.getUniqueID() + "\n" );
+        }
+        for (String s : user.getNewsFeed()) {
+            TextAreaNewsFeed.append(s + "\n") ;
+            
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea TextAreaFollowers;
@@ -129,4 +170,5 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
+
 }
