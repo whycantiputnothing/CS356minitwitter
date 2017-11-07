@@ -26,6 +26,10 @@ public class User {
         newsFeed = new ArrayList();
     }
     
+    public void addNewsFeed(String s) {
+        newsFeed.add(s);
+    }
+    
     public void addFollowers(User u) {
         followers.add(u);
     }
