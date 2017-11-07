@@ -96,7 +96,7 @@ public class User implements Subject,Observer{
     @Override
     public void update(String s) {
         addFeed(s);
-        printFeed();
+        System.out.println("User.update()");
         }
     
     public void printFeed(){
