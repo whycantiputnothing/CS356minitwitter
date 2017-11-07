@@ -9,7 +9,7 @@
  * @author Brandon
  */
 public class Driver {
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -40,30 +40,27 @@ public class Driver {
                 new AdminControlPanel().setVisible(true);
             }
         });
-        
+
         User u1 = new User("Brandon");
         User u2 = new User("Luis");
-        
+        User u3 = new User("Jerry");
+
         u1.addFollowers(u2);
-        u1.addNewsFeed("Brandon: hello there");
-        System.out.println("u1 list");
+        u1.addFollowers(u3);
+        u2.addFollowers(u3);
+        u1.addNewsFeed("hello there");
+        System.out.println("Bran list");
         u1.printFeed();
-        System.out.println("u2 list");
+        System.out.println("Lu list");
         u2.printFeed();
-        u2.addNewsFeed("Luis: Hi");
-        u2.addFollowers(u1);
-        u2.addNewsFeed("Luis: Hello");
-        System.out.println();
-        u2.printFeed();
-        System.out.println();
+        u2.addNewsFeed("testing");
+        System.out.println("Bran list");
         u1.printFeed();
-        
-        UserGroup ug = new UserGroup("Group1");
-        ug.addUser(u2);
-        ug.addUser(u1);
-        System.out.println(ug.getUsers());
-        
-        
+        System.out.println("Lu list");
+        u2.printFeed();
+        System.out.println("Jerry list");
+        u3.printFeed();
+
     }
-    
+
 }
