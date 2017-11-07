@@ -15,13 +15,18 @@ import javax.swing.JTextField;
 public class UserView extends javax.swing.JFrame {
     
     private User user;
+    private UserGroup userGroup;
 
     /**
      * Creates new form UserView
      */
-    public UserView() {
+    public UserView(User u, UserGroup ug) {
         initComponents();
-        user = new User("Brandon");
+        user = u;
+        userGroup = ug;
+//        user = new User("Brandon");
+        displayText();
+       
     }
 
     /**
@@ -137,8 +142,11 @@ public class UserView extends javax.swing.JFrame {
 
     private void bFollowUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFollowUserActionPerformed
         // TODO add your handling code here:
-        User u = new User(jTextField1.getText());
+        User u = userGroup.findUser(jTextField1.getText());
+        if (u != null) {
         user.addFollowers(u);
+        u.addFollowings(user);
+        }
         TextAreaFollowers.append(jTextField1.getText() + "\n");
     }//GEN-LAST:event_bFollowUserActionPerformed
 
@@ -146,11 +154,12 @@ public class UserView extends javax.swing.JFrame {
         // TODO add your handling code here:
         user.addNewsFeed(jTextField2.getText());
         TextAreaNewsFeed.append(jTextField2.getText() + "\n");
+        
     }//GEN-LAST:event_bPostTweetActionPerformed
 
     private void displayText(){
-        TextAreaFollowers = new JTextArea();
-        TextAreaNewsFeed = new JTextArea();
+        TextAreaFollowers.setText("");
+        TextAreaNewsFeed.setText("");
         for (User u : user.getFollowers()){
             TextAreaFollowers.append(u.getUniqueID() + "\n" );
         }

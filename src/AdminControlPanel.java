@@ -9,13 +9,13 @@
  * @author Brandon-PC
  */
 public class AdminControlPanel extends javax.swing.JFrame {
-    private UserGroup root;
+    private UserGroupManager userGroupManager;
     /**
      * Creates new form AdminControlPanel
      */
     public AdminControlPanel() {
         initComponents();
-        root = new UserGroup("Root");
+        userGroupManager = new UserGroupManager();
     }
 
     /**
@@ -153,7 +153,9 @@ public class AdminControlPanel extends javax.swing.JFrame {
 
     private void bOpenUserViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOpenUserViewActionPerformed
         // TODO add your handling code here:
-        new UserView().setVisible(true);
+        User Brandon = new User("Brandon");
+        Brandon.addNewsFeed("Hello there");
+        new UserView(Brandon, userGroupManager.getUserGroup()).setVisible(true);
         
     }//GEN-LAST:event_bOpenUserViewActionPerformed
 

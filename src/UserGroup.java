@@ -53,6 +53,19 @@ public class UserGroup {
         return userGroups;
     }
     
+    public User findUser(String s, UserGroup ug){
+        User result=  null;
+        for (User u : users) {
+            if (u.getUniqueID().equals(s)) {
+                return u;
+            }
+        }
+        for (UserGroup ug1 : ug.getUserGroups()) {
+                return ug1.findUser(s, ug1);
+            }
+        return result;
+    }
+
     public User findUser(String s) {
         for (User u : users) {
             if (u.getUniqueID().equals(s)) {
@@ -66,6 +79,22 @@ public class UserGroup {
         }
         return null;
 
+    }
+
+    public UserGroup findUserGroup(String s, UserGroup ug) {
+        UserGroup result = null;
+        if (ug.getUniqueID().equals(s)) {
+            return ug;
+        } else {
+            for (UserGroup ug2 : ug.getUserGroups()) {
+                result = findUserGroup(s, ug2);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+
+        return result;
     }
 
 }

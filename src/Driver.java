@@ -40,27 +40,41 @@ public class Driver {
                 new AdminControlPanel().setVisible(true);
             }
         });
-
-        User u1 = new User("Brandon");
-        User u2 = new User("Luis");
-        User u3 = new User("Jerry");
-
-        u1.addFollowers(u2);
-        u1.addFollowers(u3);
-        u2.addFollowers(u3);
-        u1.addNewsFeed("hello there");
-        System.out.println("Bran list");
-        u1.printFeed();
-        System.out.println("Lu list");
-        u2.printFeed();
-        u2.addNewsFeed("testing");
-        System.out.println("Bran list");
-        u1.printFeed();
-        System.out.println("Lu list");
-        u2.printFeed();
-        System.out.println("Jerry list");
-        u3.printFeed();
-
+        
+        UserGroup u1 = new UserGroup("1");
+        UserGroup u2 = new UserGroup("2");
+        UserGroup u3 = new UserGroup("3");
+        UserGroup u4 = new UserGroup("4");
+        UserGroup u5 = new UserGroup("5");
+        UserGroup u6 = new UserGroup("6");
+        UserGroup u7 = new UserGroup("10");
+        
+        User b = new User("B1");
+        User b1 = new User("B2");
+        User b2 = new User("B3");
+        User b3 = new User("B4");
+        User b4 = new User("B5");
+        User b5 = new User("B6");
+        User b6 = new User("B7");
+        
+        u1.addUserGroup(u2);
+        u1.addUserGroup(u3);
+        u2.addUserGroup(u4);
+        u4.addUserGroup(u5);
+        u3.addUserGroup(u7);
+        u5.addUserGroup(u6);
+        u5.addUserGroup(u7);
+        
+        u1.addUser(b);
+        u2.addUser(b1);
+        u3.addUser(b2);
+        u4.addUser(b4);
+        u5.addUser(b5);
+        u7.addUser(b3);
+        u7.addUser(b6);
+        
+        System.out.println(u1.findUser("B4", u1).getUniqueID());
+        System.out.println(u1.findUserGroup("10", u1).getUniqueID());
     }
 
 }
