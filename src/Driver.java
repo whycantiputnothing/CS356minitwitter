@@ -73,7 +73,7 @@ public class Driver {
         u7.addUser(b3);
         u7.addUser(b6);
         
-        System.out.println(u1.findUser("B4", u1).getUniqueID());
+        System.out.println(u1.findUser("B7", u1).getUniqueID());
         System.out.println(u1.findUserGroup("10", u1).getUniqueID());
     }
 

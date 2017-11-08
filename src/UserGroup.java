@@ -52,33 +52,21 @@ public class UserGroup {
     public List<UserGroup> getUserGroups() {
         return userGroups;
     }
-    
-    public User findUser(String s, UserGroup ug){
-        User result=  null;
+
+    public User findUser(String s, UserGroup ug) {
+        User result = null;
         for (User u : users) {
             if (u.getUniqueID().equals(s)) {
                 return u;
             }
         }
         for (UserGroup ug1 : ug.getUserGroups()) {
-                return ug1.findUser(s, ug1);
+            result = ug1.findUser(s, ug1);
+            if (result != null) {
+                return result;
             }
+        }
         return result;
-    }
-
-    public User findUser(String s) {
-        for (User u : users) {
-            if (u.getUniqueID().equals(s)) {
-                return u;
-            }
-        }
-        if (!userGroups.isEmpty()) {
-            for (UserGroup ug : userGroups) {
-                return ug.findUser(s);
-            }
-        }
-        return null;
-
     }
 
     public UserGroup findUserGroup(String s, UserGroup ug) {

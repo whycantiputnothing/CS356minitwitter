@@ -41,9 +41,9 @@ public class UserGroupManager {
     }
 
     public User findUser(String s) {
-        return userGroup.findUser(s);
+        return userGroup.findUser(s, userGroup);
     }
-    
+
     public UserGroup findUserGroup(String s) {
         return userGroup.findUserGroup(s, userGroup);
     }
@@ -71,7 +71,5 @@ public class UserGroupManager {
     public void setUserGroup(UserGroup userGroup) {
         this.userGroup = userGroup;
     }
-    
-    
 
 }
