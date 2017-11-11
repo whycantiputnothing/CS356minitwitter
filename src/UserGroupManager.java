@@ -64,7 +64,7 @@ public class UserGroupManager {
         this.groupCount = groupCount;
     }
 
-    public UserGroup getUserGroup() {
+    public UserGroup getRoot() {
         return userGroup;
     }
 

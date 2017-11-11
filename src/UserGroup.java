@@ -84,5 +84,11 @@ public class UserGroup {
 
         return result;
     }
+    
+    @Override
+    public String toString(){
+        return getUniqueID();
+        
+    }
 
 }

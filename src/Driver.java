@@ -57,24 +57,7 @@ public class Driver {
         User b5 = new User("B6");
         User b6 = new User("B7");
         
-        u1.addUserGroup(u2);
-        u1.addUserGroup(u3);
-        u2.addUserGroup(u4);
-        u4.addUserGroup(u5);
-        u3.addUserGroup(u7);
-        u5.addUserGroup(u6);
-        u5.addUserGroup(u7);
-        
-        u1.addUser(b);
-        u2.addUser(b1);
-        u3.addUser(b2);
-        u4.addUser(b4);
-        u5.addUser(b5);
-        u7.addUser(b3);
-        u7.addUser(b6);
-        
-        System.out.println(u1.findUser("B7", u1).getUniqueID());
-        System.out.println(u1.findUserGroup("10", u1).getUniqueID());
+        b.addFollowers(b1);
     }
 
 }

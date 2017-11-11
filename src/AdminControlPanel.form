@@ -49,7 +49,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="172" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="TextUserID" max="32767" attributes="0"/>
+                  <Component id="textUserID" max="32767" attributes="0"/>
                   <Component id="textGroupID" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -65,7 +65,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="TextUserID" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textUserID" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bAddUser" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -103,15 +103,20 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Component class="javax.swing.JTree" name="jTree1">
+          <Properties>
+            <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="model" type="code"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JTextField" name="TextUserID">
+    <Component class="javax.swing.JTextField" name="textUserID">
       <Properties>
         <Property name="text" type="java.lang.String" value="User ID"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextUserIDActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textUserIDActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="textGroupID">
@@ -126,11 +131,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Add User"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAddUserActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bAddGroup">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add Group"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAddGroupActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bOpenUserView">
       <Properties>

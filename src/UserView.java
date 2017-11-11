@@ -1,19 +1,19 @@
 
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Brandon-PC
  */
 public class UserView extends javax.swing.JFrame {
-    
+
     private User user;
     private UserGroup userGroup;
 
@@ -21,12 +21,15 @@ public class UserView extends javax.swing.JFrame {
      * Creates new form UserView
      */
     public UserView(User u, UserGroup ug) {
-        initComponents();
         user = u;
         userGroup = ug;
-//        user = new User("Brandon");
-        displayText();
-       
+        initComponents();
+        new Timer(10, new ActionListener() {
+
+            public void actionPerformed(ActionEvent evt) {
+                    displayText();
+            }
+        }).start();
     }
 
     /**
@@ -48,7 +51,7 @@ public class UserView extends javax.swing.JFrame {
         TextAreaFollowers = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("User View");
+        setTitle("User: " + user.getUniqueID());
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setType(java.awt.Window.Type.POPUP);
 
@@ -142,30 +145,27 @@ public class UserView extends javax.swing.JFrame {
 
     private void bFollowUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFollowUserActionPerformed
         // TODO add your handling code here:
-        User u = userGroup.findUser(jTextField1.getText());
+        User u = userGroup.findUser(jTextField1.getText(), userGroup);
         if (u != null) {
-        user.addFollowers(u);
-        u.addFollowings(user);
+            user.addFollowings(u);
+            u.addFollowers(user);
         }
-        TextAreaFollowers.append(jTextField1.getText() + "\n");
     }//GEN-LAST:event_bFollowUserActionPerformed
 
     private void bPostTweetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPostTweetActionPerformed
         // TODO add your handling code here:
         user.addNewsFeed(jTextField2.getText());
-        TextAreaNewsFeed.append(jTextField2.getText() + "\n");
-        
     }//GEN-LAST:event_bPostTweetActionPerformed
 
-    private void displayText(){
+    private void displayText() {
         TextAreaFollowers.setText("");
         TextAreaNewsFeed.setText("");
-        for (User u : user.getFollowers()){
-            TextAreaFollowers.append(u.getUniqueID() + "\n" );
+        for (User u : user.getFollowings()) {
+            TextAreaFollowers.append(u.getUniqueID() + "\n");
         }
         for (String s : user.getNewsFeed()) {
-            TextAreaNewsFeed.append(s + "\n") ;
-            
+            TextAreaNewsFeed.append(s + "\n");
+
         }
     }
 

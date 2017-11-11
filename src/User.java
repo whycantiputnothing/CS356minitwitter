@@ -46,7 +46,7 @@ public class User implements Subject,Observer{
     }
     
     public void addFollowings(User u) {
-        followers.add(u);
+        followings.add(u);
     }
 
     public String getUniqueID() {
@@ -96,13 +96,17 @@ public class User implements Subject,Observer{
     @Override
     public void update(String s) {
         addFeed(s);
-        System.out.println("User.update()");
         }
     
     public void printFeed(){
         for(String s : newsFeed) {
             System.out.println(s);
         }
+    }
+    
+    @Override
+    public String toString(){
+        return getUniqueID();
     }
     
 }

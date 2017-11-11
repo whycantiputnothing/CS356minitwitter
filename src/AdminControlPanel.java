@@ -1,21 +1,31 @@
+
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Brandon-PC
  */
 public class AdminControlPanel extends javax.swing.JFrame {
+
     private UserGroupManager userGroupManager;
+    private DefaultTreeModel model;
+
     /**
      * Creates new form AdminControlPanel
      */
     public AdminControlPanel() {
-        initComponents();
         userGroupManager = new UserGroupManager();
+        initTree();
+        initComponents();
+        jTree1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
     }
 
     /**
@@ -29,7 +39,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
-        TextUserID = new javax.swing.JTextField();
+        textUserID = new javax.swing.JTextField();
         textGroupID = new javax.swing.JTextField();
         bAddUser = new javax.swing.JButton();
         bAddGroup = new javax.swing.JButton();
@@ -42,12 +52,13 @@ public class AdminControlPanel extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin Control Panel");
 
+        jTree1.setModel(model);
         jScrollPane1.setViewportView(jTree1);
 
-        TextUserID.setText("User ID");
-        TextUserID.addActionListener(new java.awt.event.ActionListener() {
+        textUserID.setText("User ID");
+        textUserID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextUserIDActionPerformed(evt);
+                textUserIDActionPerformed(evt);
             }
         });
 
@@ -59,8 +70,18 @@ public class AdminControlPanel extends javax.swing.JFrame {
         });
 
         bAddUser.setText("Add User");
+        bAddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAddUserActionPerformed(evt);
+            }
+        });
 
         bAddGroup.setText("Add Group");
+        bAddGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAddGroupActionPerformed(evt);
+            }
+        });
 
         bOpenUserView.setText("Open User View");
         bOpenUserView.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +127,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(172, 172, 172)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TextUserID)
+                    .addComponent(textUserID)
                     .addComponent(textGroupID))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,7 +139,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TextUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bAddUser))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -143,9 +164,9 @@ public class AdminControlPanel extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TextUserIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextUserIDActionPerformed
+    private void textUserIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textUserIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TextUserIDActionPerformed
+    }//GEN-LAST:event_textUserIDActionPerformed
 
     private void textGroupIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textGroupIDActionPerformed
         // TODO add your handling code here:
@@ -153,23 +174,69 @@ public class AdminControlPanel extends javax.swing.JFrame {
 
     private void bOpenUserViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOpenUserViewActionPerformed
         // TODO add your handling code here:
-        User Brandon = new User("Brandon");
-        Brandon.addNewsFeed("Hello there");
-        new UserView(Brandon, userGroupManager.getUserGroup()).setVisible(true);
-        
+        User u;
+        Object lastPath = jTree1.getLastSelectedPathComponent();
+
+        if (lastPath instanceof DefaultMutableTreeNode) {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
+            Object userObject = node.getUserObject();
+            if (userObject instanceof User) {
+                u = (User) userObject;
+                new UserView(u, userGroupManager.getRoot()).setVisible(true);
+            }
+        }
+
     }//GEN-LAST:event_bOpenUserViewActionPerformed
 
     private void bShowUserTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowUserTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bShowUserTotalActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    
+    private void bAddGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddGroupActionPerformed
+        // TODO add your handling code here:
+        UserGroup u = new UserGroup(textGroupID.getText());
+        DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(u);
+        Object lastPath = jTree1.getLastSelectedPathComponent();
+        if (lastPath instanceof DefaultMutableTreeNode) {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
+            Object userObject = node.getUserObject();
+            if (userObject instanceof UserGroup) {
+                UserGroup ug = (UserGroup) userObject;
+                ug.addUserGroup(u);
+                node.add(newNode);
+            } else {
+                userGroupManager.getRoot().addUserGroup(u);
+                DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+                root.add(newNode);
+            }
+        }
+        model.reload();
+
+    }//GEN-LAST:event_bAddGroupActionPerformed
+
+    private void bAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddUserActionPerformed
+        // TODO add your handling code here:
+        User u = new User(textUserID.getText());
+        DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(u);
+        Object lastPath = jTree1.getLastSelectedPathComponent();
+        if (lastPath instanceof DefaultMutableTreeNode) {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
+            Object userObject = node.getUserObject();
+            if (userObject instanceof UserGroup) {
+                UserGroup ug = (UserGroup) userObject;
+                ug.addUser(u);
+                node.add(newNode);
+            } else {
+                userGroupManager.getRoot().addUser(u);
+                DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+                root.add(newNode);
+            }
+        }
+        model.reload();
+    }//GEN-LAST:event_bAddUserActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField TextUserID;
     private javax.swing.JButton bAddGroup;
     private javax.swing.JButton bAddUser;
     private javax.swing.JButton bOpenUserView;
@@ -180,5 +247,11 @@ public class AdminControlPanel extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTree jTree1;
     private javax.swing.JTextField textGroupID;
+    private javax.swing.JTextField textUserID;
     // End of variables declaration//GEN-END:variables
+
+    private void initTree() {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(userGroupManager.getRoot());
+        model = new DefaultTreeModel(root);
+    }
 }
