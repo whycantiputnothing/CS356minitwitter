@@ -30,11 +30,19 @@ public class MyTreeCellRenderer extends DefaultTreeCellRenderer implements UserM
         return this;
     }
 
+    /**
+     * if param is of type userGroup, set icon to folder
+     * @param userGroup 
+     */
     @Override
     public void visit(UserGroup userGroup) {
         setIcon(UIManager.getIcon("FileView.directoryIcon"));
     }
 
+    /**
+     * if param is of type User, set icon to file
+     * @param user
+     */
     @Override
     public void visit(User user) {
         setIcon(UIManager.getIcon("FileView.fileIcon"));

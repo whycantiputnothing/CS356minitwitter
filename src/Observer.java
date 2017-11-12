@@ -9,5 +9,10 @@
  * @author Brandon
  */
 public interface Observer {
+
+    /**
+     * 
+     * @param s String to update
+     */
     public void update(String s);
 }

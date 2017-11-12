@@ -22,7 +22,10 @@ public class User implements Subject, Observer, UserMember {
     private int observerID;
     private Subject user;
     
-    
+    /**
+     *
+     * @param ID String for identification
+     */
     public User(String ID){
         uniqueID = ID;
         followers = new ArrayList();
@@ -32,60 +35,116 @@ public class User implements Subject, Observer, UserMember {
         
     }
     
+    /**
+     * 
+     * @param s String to be added to newsFeed
+     */
     public void addNewsFeed(String s) {
         newsFeed.add(uniqueID + ": " + s);
         NotifyObservers();
     }
     
+    /**
+     * used when notifying observers, else every observer would
+     * get duplicate copies of messages
+     * @param s 
+     */
     public void addFeed(String s) {
         newsFeed.add(s);
     }
     
+    /**
+     *
+     * @param u user to be added to followers
+     */
     public void addFollowers(User u) {
         followers.add(u);
     }
     
+    /**
+     *
+     * @param u user to be added to followings
+     */
     public void addFollowings(User u) {
         followings.add(u);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUniqueID() {
         return uniqueID;
     }
 
+    /**
+     *
+     * @param uniqueID
+     */
     public void setUniqueID(String uniqueID) {
         this.uniqueID = uniqueID;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<User> getFollowers() {
         return followers;
     }
 
+    /**
+     *
+     * @param followers
+     */
     public void setFollowers(List<User> followers) {
         this.followers = followers;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<User> getFollowings() {
         return followings;
     }
 
+    /**
+     *
+     * @param followings
+     */
     public void setFollowings(List<User> followings) {
         this.followings = followings;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<String> getNewsFeed() {
         return newsFeed;
     }
 
+    /**
+     *
+     * @param newsFeed
+     */
     public void setNewsFeed(List<String> newsFeed) {
         this.newsFeed = newsFeed;
     }
 
+    /**
+     *
+     * @param observer
+     */
     @Override
     public void Attach(Observer observer) {
         addFollowers((User) observer);
     }
 
+    /**
+     *
+     */
     @Override
     public void NotifyObservers() {
         for (Observer observer : followers) {
@@ -93,11 +152,18 @@ public class User implements Subject, Observer, UserMember {
         }
     }
 
+    /**
+     *
+     * @param s
+     */
     @Override
     public void update(String s) {
         addFeed(s);
         }
     
+    /**
+     *
+     */
     public void printFeed(){
         for(String s : newsFeed) {
             System.out.println(s);
@@ -109,6 +175,10 @@ public class User implements Subject, Observer, UserMember {
         return getUniqueID();
     }
 
+    /**
+     * used to determine icon in jtree
+     * @param userGroupVisitor
+     */
     @Override
     public void accept(UserMemberVisitor userGroupVisitor) {
         userGroupVisitor.visit(this);

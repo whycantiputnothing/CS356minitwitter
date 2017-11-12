@@ -9,5 +9,10 @@
  * @author Brandon
  */
 public interface UserMember {
+
+    /**
+     *
+     * @param userGroupVisitor
+     */
     public void accept(UserMemberVisitor userGroupVisitor);
 }

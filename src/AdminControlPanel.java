@@ -25,9 +25,9 @@ public class AdminControlPanel extends javax.swing.JFrame {
 
     /**
      * Creates new form AdminControlPanel
+     * private for lazy implementation of singleton
      */
     private AdminControlPanel() {
-        //userGroupManager = new UserGroupManager();
         root = new UserGroup("root");
         initModel();
         initComponents();
@@ -76,6 +76,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
         });
 
         bAddUser.setText("Add User");
+        bAddUser.setToolTipText("Only add's unique User IDs");
         bAddUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAddUserActionPerformed(evt);
@@ -83,6 +84,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
         });
 
         bAddGroup.setText("Add Group");
+        bAddGroup.setToolTipText("Only adds unique Group IDs");
         bAddGroup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAddGroupActionPerformed(evt);
@@ -111,7 +113,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
         });
 
         bShowGroupTotal.setText("Show Group Total");
-        bShowGroupTotal.setToolTipText("");
+        bShowGroupTotal.setToolTipText("Does not include root Group");
         bShowGroupTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bShowGroupTotalActionPerformed(evt);
@@ -195,7 +197,6 @@ public class AdminControlPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_textGroupIDActionPerformed
 
     private void bOpenUserViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOpenUserViewActionPerformed
-        // TODO add your handling code here:
         User u;
         Object lastPath = jTree1.getLastSelectedPathComponent();
 
@@ -211,12 +212,15 @@ public class AdminControlPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_bOpenUserViewActionPerformed
 
     private void bShowUserTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowUserTotalActionPerformed
-        // TODO add your handling code here:
         JOptionPane.showMessageDialog(rootPane, "Total # of Users: " + numberOfUsers);
     }//GEN-LAST:event_bShowUserTotalActionPerformed
 
+    /*
+    checks to see if group ID is unqiue, if it is, adds it to selected group, or
+    defaults to root if a User is selected. 
+    also increments numberOfGroups
+    */
     private void bAddGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddGroupActionPerformed
-        // TODO add your handling code here:
         UserGroup u = new UserGroup(textGroupID.getText());
         DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(u);
         Object lastPath = jTree1.getLastSelectedPathComponent();
@@ -239,8 +243,12 @@ public class AdminControlPanel extends javax.swing.JFrame {
 
     }//GEN-LAST:event_bAddGroupActionPerformed
 
+    /*
+    checks to see if User ID is unqiue, if it is, adds it to selected group, or
+    defaults to root if a User is selected. 
+    also increments numberOfUsers
+    */
     private void bAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddUserActionPerformed
-        // TODO add your handling code here:
         User u = new User(textUserID.getText());
         DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(u);
         Object lastPath = jTree1.getLastSelectedPathComponent();
@@ -262,20 +270,20 @@ public class AdminControlPanel extends javax.swing.JFrame {
     }//GEN-LAST:event_bAddUserActionPerformed
 
     private void bShowGroupTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowGroupTotalActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Total # of User Groups: " + numberOfGroups);
+        JOptionPane.showMessageDialog(rootPane, "Total # of User Groups: " +
+                numberOfGroups);
     }//GEN-LAST:event_bShowGroupTotalActionPerformed
 
     private void bShowMessagesTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowMessagesTotalActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Total # of Messages: " + root.getNumberOfMessages(root));
+        JOptionPane.showMessageDialog(rootPane, "Total # of Messages: " +
+                root.getNumberOfMessages(root));
     }//GEN-LAST:event_bShowMessagesTotalActionPerformed
 
     private void bShowPositivePercentageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowPositivePercentageActionPerformed
-        // TODO add your handling code here:
         DecimalFormat df = new DecimalFormat("##.##%");
         JOptionPane.showMessageDialog(rootPane, "Percent of Postive Messages: "
-                + df.format((double) root.getNumberOfPositiveMessages(root) / root.getNumberOfMessages(root)));
+                + df.format((double) root.getNumberOfPositiveMessages(root) /
+                        root.getNumberOfMessages(root)));
     }//GEN-LAST:event_bShowPositivePercentageActionPerformed
 
 
@@ -303,6 +311,10 @@ public class AdminControlPanel extends javax.swing.JFrame {
         jTree1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);    
     }
 
+    /**
+     *
+     * @return instance of AdminControlPanel
+     */
     public static AdminControlPanel getInstance() {
         return instance;
     }

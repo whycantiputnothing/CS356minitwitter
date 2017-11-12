@@ -9,7 +9,17 @@
  * @author Brandon
  */
 public interface UserMemberVisitor {
+
+    /**
+     *
+     * @param userGroup
+     */
     public void visit(UserGroup userGroup);
+
+    /**
+     *
+     * @param user
+     */
     public void visit(User user);
     
 }

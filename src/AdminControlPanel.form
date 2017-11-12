@@ -131,6 +131,7 @@
     <Component class="javax.swing.JButton" name="bAddUser">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add User"/>
+        <Property name="toolTipText" type="java.lang.String" value="Only add&apos;s unique User IDs"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAddUserActionPerformed"/>
@@ -139,6 +140,7 @@
     <Component class="javax.swing.JButton" name="bAddGroup">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add Group"/>
+        <Property name="toolTipText" type="java.lang.String" value="Only adds unique Group IDs"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAddGroupActionPerformed"/>
@@ -171,7 +173,7 @@
     <Component class="javax.swing.JButton" name="bShowGroupTotal">
       <Properties>
         <Property name="text" type="java.lang.String" value="Show Group Total"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Does not include root Group"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bShowGroupTotalActionPerformed"/>

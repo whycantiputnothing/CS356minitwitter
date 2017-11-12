@@ -17,32 +17,62 @@ public class UserGroup implements UserMember{
     private List<User> users;
     private List<UserGroup> userGroups;
 
+    /**
+     *
+     * @param id
+     */
     public UserGroup(String id) {
         uniqueID = id;
         users = new ArrayList();
         userGroups = new ArrayList();
     }
 
+    /**
+     *
+     * @param u User to be added to users
+     */
     public void addUser(User u) {
         users.add(u);
     }
 
+    /**
+     *
+     * @param u UserGroup to be added to userGroups
+     */
     public void addUserGroup(UserGroup u) {
         userGroups.add(u);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUniqueID() {
         return uniqueID;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<User> getUsers() {
         return users;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<UserGroup> getUserGroups() {
         return userGroups;
     }
 
+    /**
+     * recursively search UserGroup for user S
+     * @param s String ID of user to be found
+     * @param ug UserGroup where to search for user
+     * @return User if user is found, null if not found
+     */
     public User findUser(String s, UserGroup ug) {
         User result = null;
         for (User u : ug.getUsers()) {
@@ -59,6 +89,12 @@ public class UserGroup implements UserMember{
         return result;
     }
 
+    /**
+     * Recursively search for UserGroup
+     * @param s String ID of UserGroup to be found
+     * @param ug UserGroup where to serach for user
+     * @return UserGroup if found, null if not found
+     */
     public UserGroup findUserGroup(String s, UserGroup ug) {
         UserGroup result = null;
         if (ug.getUniqueID().equals(s)) {
@@ -75,6 +111,11 @@ public class UserGroup implements UserMember{
         return result;
     }
 
+    /**
+     * recursively count number of messages
+     * @param ug UserGroup to serach for messages in
+     * @return int with number of messages
+     */
     public int getNumberOfMessages(UserGroup ug) {
         int result = 0;
         for (User u : ug.getUsers()) {
@@ -87,6 +128,11 @@ public class UserGroup implements UserMember{
         return result;
     }
 
+    /**
+     * recursively count number of positive messages
+     * @param ug UserGroup to search for positive messages in
+     * @return int with number of messages
+     */
     public int getNumberOfPositiveMessages(UserGroup ug) {
         int result = 0;
         for (User u : ug.getUsers()) {
@@ -110,6 +156,10 @@ public class UserGroup implements UserMember{
 
     }
 
+    /**
+     * used to decide icon in jtree
+     * @param userGroupVisitor
+     */
     @Override
     public void accept(UserMemberVisitor userGroupVisitor) {
         userGroupVisitor.visit(this);

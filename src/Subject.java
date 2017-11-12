@@ -10,6 +10,14 @@
  */
 public interface Subject {
     
+    /**
+     *
+     * @param observer Observer to attach to list of observers
+     */
     void Attach(Observer observer);
+
+    /**
+     *  notifies all observers of a change
+     */
     void NotifyObservers();
 }

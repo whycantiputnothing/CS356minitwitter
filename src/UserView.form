@@ -92,6 +92,7 @@
     <Component class="javax.swing.JButton" name="bFollowUser">
       <Properties>
         <Property name="text" type="java.lang.String" value="Follow User"/>
+        <Property name="toolTipText" type="java.lang.String" value="Only follows if User ID exists"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bFollowUserActionPerformed"/>
@@ -139,6 +140,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
+            <Property name="toolTipText" type="java.lang.String" value="List of current Followings"/>
           </Properties>
         </Component>
       </SubComponents>

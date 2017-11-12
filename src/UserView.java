@@ -18,7 +18,10 @@ public class UserView extends javax.swing.JFrame {
     private UserGroup userGroup;
 
     /**
-     * Creates new form UserView
+     * Creates new form UserView with title of User's unique ID
+     * updates followings list and newsFeed every 10 ms
+     * @param u
+     * @param ug
      */
     public UserView(User u, UserGroup ug) {
         user = u;
@@ -63,6 +66,7 @@ public class UserView extends javax.swing.JFrame {
         });
 
         bFollowUser.setText("Follow User");
+        bFollowUser.setToolTipText("Only follows if User ID exists");
         bFollowUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bFollowUserActionPerformed(evt);
@@ -89,6 +93,7 @@ public class UserView extends javax.swing.JFrame {
 
         TextAreaFollowers.setColumns(20);
         TextAreaFollowers.setRows(5);
+        TextAreaFollowers.setToolTipText("List of current Followings");
         jScrollPane4.setViewportView(TextAreaFollowers);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -144,7 +149,6 @@ public class UserView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void bFollowUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFollowUserActionPerformed
-        // TODO add your handling code here:
         User u = userGroup.findUser(jTextField1.getText(), userGroup);
         if (u != null) {
             user.addFollowings(u);
@@ -153,7 +157,6 @@ public class UserView extends javax.swing.JFrame {
     }//GEN-LAST:event_bFollowUserActionPerformed
 
     private void bPostTweetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPostTweetActionPerformed
-        // TODO add your handling code here:
         user.addNewsFeed(jTextField2.getText());
     }//GEN-LAST:event_bPostTweetActionPerformed
 
