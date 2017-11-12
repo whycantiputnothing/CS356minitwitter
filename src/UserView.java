@@ -89,12 +89,15 @@ public class UserView extends javax.swing.JFrame {
 
         TextAreaNewsFeed.setColumns(20);
         TextAreaNewsFeed.setLineWrap(true);
+        TextAreaNewsFeed.setRows(5);
         TextAreaNewsFeed.setAutoscrolls(false);
         jScrollPane3.setViewportView(TextAreaNewsFeed);
 
+        TextAreaFollowings.setEditable(false);
         TextAreaFollowings.setColumns(20);
         TextAreaFollowings.setLineWrap(true);
-        TextAreaFollowings.setToolTipText("List of current Followings");
+        TextAreaFollowings.setRows(5);
+        TextAreaFollowings.setToolTipText("");
         TextAreaFollowings.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane4.setViewportView(TextAreaFollowings);
 
