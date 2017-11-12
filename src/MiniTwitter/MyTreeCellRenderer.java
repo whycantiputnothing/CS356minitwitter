@@ -1,3 +1,5 @@
+package MiniTwitter;
+
 
 import java.awt.Component;
 import javax.swing.JTree;

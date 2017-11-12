@@ -1,3 +1,5 @@
+package MiniTwitter;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,11 +10,16 @@
  *
  * @author Brandon
  */
-public interface UserMember {
-
+public interface Subject {
+    
     /**
      *
-     * @param userGroupVisitor
+     * @param observer Observer to attach to list of observers
      */
-    public void accept(UserMemberVisitor userGroupVisitor);
+    void Attach(Observer observer);
+
+    /**
+     *  notifies all observers of a change
+     */
+    void NotifyObservers();
 }
