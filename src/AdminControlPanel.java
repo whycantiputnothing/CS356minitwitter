@@ -76,7 +76,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
         });
 
         bAddUser.setText("Add User");
-        bAddUser.setToolTipText("Only add's unique User IDs");
+        bAddUser.setToolTipText("Only add's unique User IDs. Must have something in Jtree selected");
         bAddUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAddUserActionPerformed(evt);

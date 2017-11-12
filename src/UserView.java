@@ -51,7 +51,7 @@ public class UserView extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         TextAreaNewsFeed = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
-        TextAreaFollowers = new javax.swing.JTextArea();
+        TextAreaFollowings = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("User: " + user.getUniqueID());
@@ -88,13 +88,15 @@ public class UserView extends javax.swing.JFrame {
         });
 
         TextAreaNewsFeed.setColumns(20);
-        TextAreaNewsFeed.setRows(5);
+        TextAreaNewsFeed.setLineWrap(true);
+        TextAreaNewsFeed.setAutoscrolls(false);
         jScrollPane3.setViewportView(TextAreaNewsFeed);
 
-        TextAreaFollowers.setColumns(20);
-        TextAreaFollowers.setRows(5);
-        TextAreaFollowers.setToolTipText("List of current Followings");
-        jScrollPane4.setViewportView(TextAreaFollowers);
+        TextAreaFollowings.setColumns(20);
+        TextAreaFollowings.setLineWrap(true);
+        TextAreaFollowings.setToolTipText("List of current Followings");
+        TextAreaFollowings.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jScrollPane4.setViewportView(TextAreaFollowings);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,19 +163,19 @@ public class UserView extends javax.swing.JFrame {
     }//GEN-LAST:event_bPostTweetActionPerformed
 
     private void displayText() {
-        TextAreaFollowers.setText("");
-        TextAreaNewsFeed.setText("");
+        TextAreaFollowings.setText("List View (Current Following)\n");
+        TextAreaNewsFeed.setText("List View (News Feed)\n");
         for (User u : user.getFollowings()) {
-            TextAreaFollowers.append(u.getUniqueID() + "\n");
+            TextAreaFollowings.append("- " + u.getUniqueID() + "\n");
         }
         for (String s : user.getNewsFeed()) {
-            TextAreaNewsFeed.append(s + "\n");
+            TextAreaNewsFeed.append("- " + s + "\n");
 
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea TextAreaFollowers;
+    private javax.swing.JTextArea TextAreaFollowings;
     private javax.swing.JTextArea TextAreaNewsFeed;
     private javax.swing.JButton bFollowUser;
     private javax.swing.JButton bPostTweet;

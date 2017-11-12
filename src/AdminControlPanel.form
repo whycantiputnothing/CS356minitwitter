@@ -131,7 +131,7 @@
     <Component class="javax.swing.JButton" name="bAddUser">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add User"/>
-        <Property name="toolTipText" type="java.lang.String" value="Only add&apos;s unique User IDs"/>
+        <Property name="toolTipText" type="java.lang.String" value="Only add&apos;s unique User IDs. Must have something in Jtree selected"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAddUserActionPerformed"/>
