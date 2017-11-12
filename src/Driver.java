@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -36,12 +37,12 @@ public class Driver {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-               // AdminControlPanel.getInstance().setVisible(true);
-               new AdminControlPanel().setVisible(true);
+                AdminControlPanel.getInstance().setVisible(true);
+                // new AdminControlPanel().setVisible(true);
             }
         });
-        
     }
 
 }

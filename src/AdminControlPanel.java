@@ -16,7 +16,7 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public class AdminControlPanel extends javax.swing.JFrame {
 
-//    private static AdminControlPanel instance = new AdminControlPanel();
+    private static AdminControlPanel instance = new AdminControlPanel();
     private UserGroupManager userGroupManager;
     private DefaultTreeModel model;
     private UserGroup root;
@@ -26,12 +26,12 @@ public class AdminControlPanel extends javax.swing.JFrame {
     /**
      * Creates new form AdminControlPanel
      */
-    public AdminControlPanel() {
+    private AdminControlPanel() {
         //userGroupManager = new UserGroupManager();
         root = new UserGroup("root");
-        initTree();
+        initModel();
         initComponents();
-        jTree1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+        initTree();
     }
 
     /**
@@ -274,7 +274,8 @@ public class AdminControlPanel extends javax.swing.JFrame {
     private void bShowPositivePercentageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowPositivePercentageActionPerformed
         // TODO add your handling code here:
         DecimalFormat df = new DecimalFormat("##.##%");
-        JOptionPane.showMessageDialog(rootPane, "Percent of Postive Messages: " + df.format((double)root.getNumberOfPositiveMessages(root)/root.getNumberOfMessages(root)));
+        JOptionPane.showMessageDialog(rootPane, "Percent of Postive Messages: "
+                + df.format((double) root.getNumberOfPositiveMessages(root) / root.getNumberOfMessages(root)));
     }//GEN-LAST:event_bShowPositivePercentageActionPerformed
 
 
@@ -292,13 +293,17 @@ public class AdminControlPanel extends javax.swing.JFrame {
     private javax.swing.JTextField textUserID;
     // End of variables declaration//GEN-END:variables
 
-    private void initTree() {
+    private void initModel() {
         DefaultMutableTreeNode tRoot = new DefaultMutableTreeNode(root);
         model = new DefaultTreeModel(tRoot);
     }
+    
+    private void initTree(){
+        jTree1.setCellRenderer(new MyTreeCellRenderer());
+        jTree1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);    
+    }
 
     public static AdminControlPanel getInstance() {
-//        return instance;
-        return null;
+        return instance;
     }
 }

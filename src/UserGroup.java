@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Brandon
  */
-public class UserGroup {
+public class UserGroup implements UserMember{
 
     private String uniqueID;
     private List<User> users;
@@ -108,6 +108,11 @@ public class UserGroup {
     public String toString() {
         return getUniqueID();
 
+    }
+
+    @Override
+    public void accept(UserMemberVisitor userGroupVisitor) {
+        userGroupVisitor.visit(this);
     }
 
 }

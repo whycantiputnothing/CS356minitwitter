@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Brandon
  */
-public class User implements Subject,Observer{
+public class User implements Subject, Observer, UserMember {
     
     private String uniqueID;
     private List<User> followers;
@@ -107,6 +107,11 @@ public class User implements Subject,Observer{
     @Override
     public String toString(){
         return getUniqueID();
+    }
+
+    @Override
+    public void accept(UserMemberVisitor userGroupVisitor) {
+        userGroupVisitor.visit(this);
     }
     
 }
