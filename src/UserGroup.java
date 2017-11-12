@@ -23,22 +23,12 @@ public class UserGroup {
         userGroups = new ArrayList();
     }
 
-    public boolean addUser(User u) {
-        if (users.contains(u)) {
-            return false;
-        } else {
-            users.add(u);
-            return true;
-        }
+    public void addUser(User u) {
+        users.add(u);
     }
 
-    public boolean addUserGroup(UserGroup u) {
-        if (userGroups.contains(u)) {
-            return false;
-        } else {
-            userGroups.add(u);
-            return true;
-        }
+    public void addUserGroup(UserGroup u) {
+        userGroups.add(u);
     }
 
     public String getUniqueID() {
@@ -55,13 +45,13 @@ public class UserGroup {
 
     public User findUser(String s, UserGroup ug) {
         User result = null;
-        for (User u : users) {
+        for (User u : ug.getUsers()) {
             if (u.getUniqueID().equals(s)) {
                 return u;
             }
         }
         for (UserGroup ug1 : ug.getUserGroups()) {
-            result = ug1.findUser(s, ug1);
+            result = findUser(s, ug1);
             if (result != null) {
                 return result;
             }
@@ -84,11 +74,40 @@ public class UserGroup {
 
         return result;
     }
-    
+
+    public int getNumberOfMessages(UserGroup ug) {
+        int result = 0;
+        for (User u : ug.getUsers()) {
+            result += u.getNewsFeed().size();
+        }
+        for (UserGroup ug1 : ug.getUserGroups()) {
+            result += ug1.getNumberOfMessages(ug1);
+
+        }
+        return result;
+    }
+
+    public int getNumberOfPositiveMessages(UserGroup ug) {
+        int result = 0;
+        for (User u : ug.getUsers()) {
+            for (String s : u.getNewsFeed()) {
+                s.toLowerCase();
+                if (s.contains("great") || s.contains("good")
+                        || s.contains("excellent")) {
+                    result += 1;
+                }
+            }
+        }
+        for (UserGroup ug1 : ug.getUserGroups()) {
+            result += ug1.getNumberOfMessages(ug1);
+        }
+        return result;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return getUniqueID();
-        
+
     }
 
 }

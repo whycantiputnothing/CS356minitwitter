@@ -22,21 +22,16 @@ public class UserGroupManager {
 
     public void addUser(String s) {
         User user = new User(s);
-        addUser(user);
+        addUser(user, userGroup);
     }
 
-    public void addUser(User u) {
-        userGroup.addUser(u);
+    public void addUser(User u, UserGroup ug) {
+        ug.addUser(u);
         userCount++;
     }
 
-    public void addUserGroup(String s) {
-        UserGroup group = new UserGroup(s);
-        addUserGroup(group);
-    }
-
-    public void addUserGroup(UserGroup userGroup) {
-        userGroup.addUserGroup(userGroup);
+    public void addUserGroup(UserGroup toAdd, UserGroup existing) {
+        existing.addUserGroup(userGroup);
         groupCount++;
     }
 
@@ -46,6 +41,10 @@ public class UserGroupManager {
 
     public UserGroup findUserGroup(String s) {
         return userGroup.findUserGroup(s, userGroup);
+    }
+    
+    public int getNumberOfMessages() {
+        return userGroup.getNumberOfMessages(userGroup);
     }
 
     public int getUserCount() {

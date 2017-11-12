@@ -37,27 +37,11 @@ public class Driver {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminControlPanel().setVisible(true);
+               // AdminControlPanel.getInstance().setVisible(true);
+               new AdminControlPanel().setVisible(true);
             }
         });
         
-        UserGroup u1 = new UserGroup("1");
-        UserGroup u2 = new UserGroup("2");
-        UserGroup u3 = new UserGroup("3");
-        UserGroup u4 = new UserGroup("4");
-        UserGroup u5 = new UserGroup("5");
-        UserGroup u6 = new UserGroup("6");
-        UserGroup u7 = new UserGroup("10");
-        
-        User b = new User("B1");
-        User b1 = new User("B2");
-        User b2 = new User("B3");
-        User b3 = new User("B4");
-        User b4 = new User("B5");
-        User b5 = new User("B6");
-        User b6 = new User("B7");
-        
-        b.addFollowers(b1);
     }
 
 }

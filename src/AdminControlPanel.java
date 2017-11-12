@@ -1,5 +1,6 @@
 
-import javax.swing.JTree;
+import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
@@ -15,14 +16,19 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public class AdminControlPanel extends javax.swing.JFrame {
 
+//    private static AdminControlPanel instance = new AdminControlPanel();
     private UserGroupManager userGroupManager;
     private DefaultTreeModel model;
+    private UserGroup root;
+    private int numberOfUsers;
+    private int numberOfGroups;
 
     /**
      * Creates new form AdminControlPanel
      */
     public AdminControlPanel() {
-        userGroupManager = new UserGroupManager();
+        //userGroupManager = new UserGroupManager();
+        root = new UserGroup("root");
         initTree();
         initComponents();
         jTree1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -98,11 +104,26 @@ public class AdminControlPanel extends javax.swing.JFrame {
         });
 
         bShowMessagesTotal.setText("Show Messages Total");
+        bShowMessagesTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bShowMessagesTotalActionPerformed(evt);
+            }
+        });
 
         bShowGroupTotal.setText("Show Group Total");
         bShowGroupTotal.setToolTipText("");
+        bShowGroupTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bShowGroupTotalActionPerformed(evt);
+            }
+        });
 
         bShowPositivePercentage.setText("Show Positive Percentage");
+        bShowPositivePercentage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bShowPositivePercentageActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,19 +132,20 @@ public class AdminControlPanel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bOpenUserView, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(84, 84, 84))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(bShowMessagesTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                             .addComponent(bShowUserTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(bShowPositivePercentage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bShowGroupTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(bOpenUserView, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(bShowGroupTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 4, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(172, 172, 172)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,15 +169,15 @@ public class AdminControlPanel extends javax.swing.JFrame {
                     .addComponent(bAddGroup))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bOpenUserView)
-                .addGap(49, 49, 49)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bShowGroupTotal)
                     .addComponent(bShowUserTotal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bShowPositivePercentage)
                     .addComponent(bShowMessagesTotal))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,7 +204,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
             Object userObject = node.getUserObject();
             if (userObject instanceof User) {
                 u = (User) userObject;
-                new UserView(u, userGroupManager.getRoot()).setVisible(true);
+                new UserView(u, root).setVisible(true);
             }
         }
 
@@ -190,6 +212,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
 
     private void bShowUserTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowUserTotalActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "Total # of Users: " + numberOfUsers);
     }//GEN-LAST:event_bShowUserTotalActionPerformed
 
     private void bAddGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddGroupActionPerformed
@@ -197,7 +220,8 @@ public class AdminControlPanel extends javax.swing.JFrame {
         UserGroup u = new UserGroup(textGroupID.getText());
         DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(u);
         Object lastPath = jTree1.getLastSelectedPathComponent();
-        if (lastPath instanceof DefaultMutableTreeNode) {
+        if (lastPath instanceof DefaultMutableTreeNode && root.findUserGroup(u.getUniqueID(), root) == null) {
+            numberOfGroups++;
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
             Object userObject = node.getUserObject();
             if (userObject instanceof UserGroup) {
@@ -205,11 +229,12 @@ public class AdminControlPanel extends javax.swing.JFrame {
                 ug.addUserGroup(u);
                 node.add(newNode);
             } else {
-                userGroupManager.getRoot().addUserGroup(u);
-                DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-                root.add(newNode);
+                root.addUserGroup(u);
+                DefaultMutableTreeNode tRoot = (DefaultMutableTreeNode) model.getRoot();
+                tRoot.add(newNode);
             }
         }
+
         model.reload();
 
     }//GEN-LAST:event_bAddGroupActionPerformed
@@ -219,7 +244,8 @@ public class AdminControlPanel extends javax.swing.JFrame {
         User u = new User(textUserID.getText());
         DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(u);
         Object lastPath = jTree1.getLastSelectedPathComponent();
-        if (lastPath instanceof DefaultMutableTreeNode) {
+        if (lastPath instanceof DefaultMutableTreeNode && root.findUser(u.getUniqueID(), root) == null) {
+            numberOfUsers++;
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
             Object userObject = node.getUserObject();
             if (userObject instanceof UserGroup) {
@@ -227,13 +253,29 @@ public class AdminControlPanel extends javax.swing.JFrame {
                 ug.addUser(u);
                 node.add(newNode);
             } else {
-                userGroupManager.getRoot().addUser(u);
-                DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-                root.add(newNode);
+                root.addUser(u);
+                DefaultMutableTreeNode tRoot = (DefaultMutableTreeNode) model.getRoot();
+                tRoot.add(newNode);
             }
         }
         model.reload();
     }//GEN-LAST:event_bAddUserActionPerformed
+
+    private void bShowGroupTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowGroupTotalActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "Total # of User Groups: " + numberOfGroups);
+    }//GEN-LAST:event_bShowGroupTotalActionPerformed
+
+    private void bShowMessagesTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowMessagesTotalActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "Total # of Messages: " + root.getNumberOfMessages(root));
+    }//GEN-LAST:event_bShowMessagesTotalActionPerformed
+
+    private void bShowPositivePercentageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowPositivePercentageActionPerformed
+        // TODO add your handling code here:
+        DecimalFormat df = new DecimalFormat("##.##%");
+        JOptionPane.showMessageDialog(rootPane, "Percent of Postive Messages: " + df.format((double)root.getNumberOfPositiveMessages(root)/root.getNumberOfMessages(root)));
+    }//GEN-LAST:event_bShowPositivePercentageActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -251,7 +293,12 @@ public class AdminControlPanel extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initTree() {
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode(userGroupManager.getRoot());
-        model = new DefaultTreeModel(root);
+        DefaultMutableTreeNode tRoot = new DefaultMutableTreeNode(root);
+        model = new DefaultTreeModel(tRoot);
+    }
+
+    public static AdminControlPanel getInstance() {
+//        return instance;
+        return null;
     }
 }

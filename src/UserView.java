@@ -27,7 +27,7 @@ public class UserView extends javax.swing.JFrame {
         new Timer(10, new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
-                    displayText();
+                displayText();
             }
         }).start();
     }
