@@ -207,7 +207,11 @@ public class AdminControlPanel extends javax.swing.JFrame {
             if (userObject instanceof User) {
                 u = (User) userObject;
                 new UserView(u, root).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Please select a User");
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please select a User");
         }
 
     }//GEN-LAST:event_bOpenUserViewActionPerformed
@@ -263,7 +267,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
         if (lastPath instanceof DefaultMutableTreeNode) {
             if (!(root.findUser(u.getUniqueID(), root) == null)) {
                 JOptionPane.showMessageDialog(rootPane, "Only unique User ID's "
-                        + "are allowed. " + textUserID.getText() + " is in use" );
+                        + "are allowed. " + textUserID.getText() + " is in use");
             } else {
                 numberOfUsers++;
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
