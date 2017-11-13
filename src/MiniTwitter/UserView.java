@@ -161,6 +161,9 @@ public class UserView extends javax.swing.JFrame {
             user.addFollowings(u);
             u.addFollowers(user);
         }
+        else {
+            
+        }
     }//GEN-LAST:event_bFollowUserActionPerformed
 
     private void bPostTweetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPostTweetActionPerformed

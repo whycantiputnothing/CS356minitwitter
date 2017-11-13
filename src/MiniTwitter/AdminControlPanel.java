@@ -228,7 +228,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
         if (lastPath instanceof DefaultMutableTreeNode) {
             if (!(root.findUserGroup(u.getUniqueID(), root) == null)) {
                 JOptionPane.showMessageDialog(rootPane, "Only unique User Group "
-                        + "ID's are allowed");
+                        + "ID's are allowed " + textGroupID.getText() + " is in use");
             } else {
                 numberOfGroups++;
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
@@ -263,7 +263,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
         if (lastPath instanceof DefaultMutableTreeNode) {
             if (!(root.findUser(u.getUniqueID(), root) == null)) {
                 JOptionPane.showMessageDialog(rootPane, "Only unique User ID's "
-                        + "are allowed");
+                        + "are allowed. " + textUserID.getText() + " is in use" );
             } else {
                 numberOfUsers++;
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
