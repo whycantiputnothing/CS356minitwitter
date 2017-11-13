@@ -1,6 +1,5 @@
 package MiniTwitter;
 
-
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -26,8 +25,8 @@ public class AdminControlPanel extends javax.swing.JFrame {
     private int numberOfGroups;
 
     /**
-     * Creates new form AdminControlPanel
-     * private for lazy implementation of singleton
+     * Creates new form AdminControlPanel private for lazy implementation of
+     * singleton
      */
     private AdminControlPanel() {
         root = new UserGroup("root");
@@ -221,26 +220,33 @@ public class AdminControlPanel extends javax.swing.JFrame {
     checks to see if group ID is unqiue, if it is, adds it to selected group, or
     defaults to root if a User is selected. 
     also increments numberOfGroups
-    */
+     */
     private void bAddGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddGroupActionPerformed
         UserGroup u = new UserGroup(textGroupID.getText());
         DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(u);
         Object lastPath = jTree1.getLastSelectedPathComponent();
-        if (lastPath instanceof DefaultMutableTreeNode && root.findUserGroup(u.getUniqueID(), root) == null) {
-            numberOfGroups++;
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
-            Object userObject = node.getUserObject();
-            if (userObject instanceof UserGroup) {
-                UserGroup ug = (UserGroup) userObject;
-                ug.addUserGroup(u);
-                node.add(newNode);
+        if (lastPath instanceof DefaultMutableTreeNode) {
+            if (!(root.findUserGroup(u.getUniqueID(), root) == null)) {
+                JOptionPane.showMessageDialog(rootPane, "Only unique User Group "
+                        + "ID's are allowed");
             } else {
-                root.addUserGroup(u);
-                DefaultMutableTreeNode tRoot = (DefaultMutableTreeNode) model.getRoot();
-                tRoot.add(newNode);
+                numberOfGroups++;
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
+                Object userObject = node.getUserObject();
+                if (userObject instanceof UserGroup) {
+                    UserGroup ug = (UserGroup) userObject;
+                    ug.addUserGroup(u);
+                    node.add(newNode);
+                } else {
+                    root.addUserGroup(u);
+                    DefaultMutableTreeNode tRoot = (DefaultMutableTreeNode) model.getRoot();
+                    tRoot.add(newNode);
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please select a User Group "
+                    + "before adding a new User Group");
         }
-
         model.reload();
 
     }//GEN-LAST:event_bAddGroupActionPerformed
@@ -249,43 +255,51 @@ public class AdminControlPanel extends javax.swing.JFrame {
     checks to see if User ID is unqiue, if it is, adds it to selected group, or
     defaults to root if a User is selected. 
     also increments numberOfUsers
-    */
+     */
     private void bAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddUserActionPerformed
         User u = new User(textUserID.getText());
         DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(u);
         Object lastPath = jTree1.getLastSelectedPathComponent();
-        if (lastPath instanceof DefaultMutableTreeNode && root.findUser(u.getUniqueID(), root) == null) {
-            numberOfUsers++;
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
-            Object userObject = node.getUserObject();
-            if (userObject instanceof UserGroup) {
-                UserGroup ug = (UserGroup) userObject;
-                ug.addUser(u);
-                node.add(newNode);
+        if (lastPath instanceof DefaultMutableTreeNode) {
+            if (!(root.findUser(u.getUniqueID(), root) == null)) {
+                JOptionPane.showMessageDialog(rootPane, "Only unique User ID's "
+                        + "are allowed");
             } else {
-                root.addUser(u);
-                DefaultMutableTreeNode tRoot = (DefaultMutableTreeNode) model.getRoot();
-                tRoot.add(newNode);
+                numberOfUsers++;
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) lastPath;
+                Object userObject = node.getUserObject();
+                if (userObject instanceof UserGroup) {
+                    UserGroup ug = (UserGroup) userObject;
+                    ug.addUser(u);
+                    node.add(newNode);
+                } else {
+                    root.addUser(u);
+                    DefaultMutableTreeNode tRoot = (DefaultMutableTreeNode) model.getRoot();
+                    tRoot.add(newNode);
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Please select a User Group "
+                    + "before adding a new User");
         }
         model.reload();
     }//GEN-LAST:event_bAddUserActionPerformed
 
     private void bShowGroupTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowGroupTotalActionPerformed
-        JOptionPane.showMessageDialog(rootPane, "Total # of User Groups: " +
-                numberOfGroups);
+        JOptionPane.showMessageDialog(rootPane, "Total # of User Groups: "
+                + numberOfGroups);
     }//GEN-LAST:event_bShowGroupTotalActionPerformed
 
     private void bShowMessagesTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowMessagesTotalActionPerformed
-        JOptionPane.showMessageDialog(rootPane, "Total # of Messages: " +
-                root.getNumberOfMessages(root));
+        JOptionPane.showMessageDialog(rootPane, "Total # of Messages: "
+                + root.getNumberOfMessages(root));
     }//GEN-LAST:event_bShowMessagesTotalActionPerformed
 
     private void bShowPositivePercentageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowPositivePercentageActionPerformed
         DecimalFormat df = new DecimalFormat("##.##%");
         JOptionPane.showMessageDialog(rootPane, "Percent of Postive Messages: "
-                + df.format((double) root.getNumberOfPositiveMessages(root) /
-                        root.getNumberOfMessages(root)));
+                + df.format((double) root.getNumberOfPositiveMessages(root)
+                        / root.getNumberOfMessages(root)));
     }//GEN-LAST:event_bShowPositivePercentageActionPerformed
 
 
@@ -307,10 +321,10 @@ public class AdminControlPanel extends javax.swing.JFrame {
         DefaultMutableTreeNode tRoot = new DefaultMutableTreeNode(root);
         model = new DefaultTreeModel(tRoot);
     }
-    
-    private void initTree(){
+
+    private void initTree() {
         jTree1.setCellRenderer(new MyTreeCellRenderer());
-        jTree1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);    
+        jTree1.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
     }
 
     /**
