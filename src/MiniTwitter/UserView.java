@@ -1,8 +1,8 @@
 package MiniTwitter;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /*
@@ -20,8 +20,9 @@ public class UserView extends javax.swing.JFrame {
     private UserGroup userGroup;
 
     /**
-     * Creates new form UserView with title of User's unique ID
-     * updates followings list and newsFeed every 10 ms
+     * Creates new form UserView with title of User's unique ID updates
+     * followings list and newsFeed every 10 ms
+     *
      * @param u
      * @param ug
      */
@@ -160,9 +161,9 @@ public class UserView extends javax.swing.JFrame {
         if (u != null) {
             user.addFollowings(u);
             u.addFollowers(user);
-        }
-        else {
-            
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Only able to follow existing Users." 
+                    + " User: " + jTextField1.getText() + " does not exist.");
         }
     }//GEN-LAST:event_bFollowUserActionPerformed
 

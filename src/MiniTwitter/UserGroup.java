@@ -138,8 +138,8 @@ public class UserGroup implements UserMember{
     public int getNumberOfPositiveMessages(UserGroup ug) {
         int result = 0;
         for (User u : ug.getUsers()) {
-            for (String s : u.getNewsFeed()) {
-                s.toLowerCase();
+            for (String str : u.getNewsFeed()) {
+                String s = str.toLowerCase();
                 if (s.contains("great") || s.contains("good")
                         || s.contains("excellent")) {
                     result += 1;
@@ -147,7 +147,7 @@ public class UserGroup implements UserMember{
             }
         }
         for (UserGroup ug1 : ug.getUserGroups()) {
-            result += ug1.getNumberOfMessages(ug1);
+            result += getNumberOfPositiveMessages(ug1);
         }
         return result;
     }
