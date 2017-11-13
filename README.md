@@ -5,4 +5,4 @@
 - visitor used for deciding icons in jtree
 - Positive words are : good, great, execellent 
 - totalMessages includes duplicates from following other users
-- made in NetBeans
+- made in NetBeans, please Build before running
