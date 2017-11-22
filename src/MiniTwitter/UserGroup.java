@@ -18,6 +18,8 @@ public class UserGroup implements UserMember{
     private String uniqueID;
     private List<User> users;
     private List<UserGroup> userGroups;
+    private long creationTime;
+    
 
     /**
      *

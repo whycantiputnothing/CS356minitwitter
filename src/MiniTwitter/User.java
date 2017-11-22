@@ -23,7 +23,9 @@ public class User implements Subject, Observer, UserMember {
     private static int observerIDTracker = 0;
     private int observerID;
     private Subject user;
-    
+    private long creationTime;
+    private long lastUpdateTime;
+
     /**
      *
      * @param ID String for identification
@@ -34,7 +36,8 @@ public class User implements Subject, Observer, UserMember {
         followings = new ArrayList();
         newsFeed = new ArrayList();
         this.observerID = observerIDTracker++;
-        
+        creationTime = System.currentTimeMillis();
+        lastUpdateTime = creationTime;
     }
     
     /**
@@ -133,6 +136,22 @@ public class User implements Subject, Observer, UserMember {
      */
     public void setNewsFeed(List<String> newsFeed) {
         this.newsFeed = newsFeed;
+    }
+    
+     public long getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(long creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public long getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(long lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
     }
 
     /**

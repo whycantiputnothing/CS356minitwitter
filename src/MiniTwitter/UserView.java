@@ -2,6 +2,8 @@ package MiniTwitter;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -18,6 +20,7 @@ public class UserView extends javax.swing.JFrame {
 
     private User user;
     private UserGroup userGroup;
+    private SimpleDateFormat sdf;
 
     /**
      * Creates new form UserView with title of User's unique ID updates
@@ -30,6 +33,7 @@ public class UserView extends javax.swing.JFrame {
         user = u;
         userGroup = ug;
         initComponents();
+        initCreationTime();
         new Timer(10, new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
@@ -55,6 +59,8 @@ public class UserView extends javax.swing.JFrame {
         TextAreaNewsFeed = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
         TextAreaFollowings = new javax.swing.JTextArea();
+        jLabelCreationTime = new javax.swing.JLabel();
+        jLabelUpdateTime = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("User: " + user.getUniqueID());
@@ -104,6 +110,10 @@ public class UserView extends javax.swing.JFrame {
         TextAreaFollowings.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jScrollPane4.setViewportView(TextAreaFollowings);
 
+        jLabelCreationTime.setText("Creation Time: ");
+
+        jLabelUpdateTime.setText("Last Updated Time: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,15 +132,27 @@ public class UserView extends javax.swing.JFrame {
                             .addComponent(jScrollPane4))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bFollowUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelCreationTime, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bFollowUser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(19, 19, 19))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(jLabelUpdateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelCreationTime)
+                    .addComponent(jLabelUpdateTime))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bFollowUser, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -141,7 +163,7 @@ public class UserView extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bPostTweet, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -162,7 +184,7 @@ public class UserView extends javax.swing.JFrame {
             user.addFollowings(u);
             u.addFollowers(user);
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Only able to follow existing Users." 
+            JOptionPane.showMessageDialog(rootPane, "Only able to follow existing Users."
                     + " User: " + jTextField1.getText() + " does not exist.");
         }
     }//GEN-LAST:event_bFollowUserActionPerformed
@@ -171,7 +193,20 @@ public class UserView extends javax.swing.JFrame {
         user.addNewsFeed(jTextField2.getText());
     }//GEN-LAST:event_bPostTweetActionPerformed
 
-    private void displayText() {
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea TextAreaFollowings;
+    private javax.swing.JTextArea TextAreaNewsFeed;
+    private javax.swing.JButton bFollowUser;
+    private javax.swing.JButton bPostTweet;
+    private javax.swing.JLabel jLabelCreationTime;
+    private javax.swing.JLabel jLabelUpdateTime;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    // End of variables declaration//GEN-END:variables
+
+        private void displayText() {
         TextAreaFollowings.setText("List View (Current Following)\n");
         TextAreaNewsFeed.setText("List View (News Feed)\n");
         for (User u : user.getFollowings()) {
@@ -181,17 +216,15 @@ public class UserView extends javax.swing.JFrame {
             TextAreaNewsFeed.append("- " + s + "\n");
 
         }
+        jLabelUpdateTime.setText("Last Updated Time: "
+                + sdf.format(new Date(user.getLastUpdateTime())));
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea TextAreaFollowings;
-    private javax.swing.JTextArea TextAreaNewsFeed;
-    private javax.swing.JButton bFollowUser;
-    private javax.swing.JButton bPostTweet;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    // End of variables declaration//GEN-END:variables
+        
+    private void initCreationTime() {
+        sdf = new SimpleDateFormat("HH:mm:ss");
+        jLabelCreationTime.setText("Creation Time: "
+                + sdf.format(new Date(user.getCreationTime())));
+    }
+    
 
 }
