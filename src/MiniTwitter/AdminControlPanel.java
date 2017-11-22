@@ -18,9 +18,9 @@ import javax.swing.tree.TreeSelectionModel;
 public class AdminControlPanel extends javax.swing.JFrame {
 
     private static AdminControlPanel instance = new AdminControlPanel();
-    private UserGroupManager userGroupManager;
     private DefaultTreeModel model;
     private UserGroup root;
+    private UserGroupManager userGroupManager;
     private int numberOfUsers;
     private int numberOfGroups;
 
@@ -55,6 +55,7 @@ public class AdminControlPanel extends javax.swing.JFrame {
         bShowMessagesTotal = new javax.swing.JButton();
         bShowGroupTotal = new javax.swing.JButton();
         bShowPositivePercentage = new javax.swing.JButton();
+        bIDVerification = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin Control Panel");
@@ -62,14 +63,14 @@ public class AdminControlPanel extends javax.swing.JFrame {
         jTree1.setModel(model);
         jScrollPane1.setViewportView(jTree1);
 
-        textUserID.setText("User ID");
+        textUserID.setText("UserID");
         textUserID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textUserIDActionPerformed(evt);
             }
         });
 
-        textGroupID.setText("Group ID");
+        textGroupID.setText("GroupID");
         textGroupID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textGroupIDActionPerformed(evt);
@@ -128,19 +129,23 @@ public class AdminControlPanel extends javax.swing.JFrame {
             }
         });
 
+        bIDVerification.setText("ID Verification");
+        bIDVerification.setToolTipText("");
+        bIDVerification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bIDVerificationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bOpenUserView, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(bShowMessagesTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                             .addComponent(bShowUserTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -148,7 +153,13 @@ public class AdminControlPanel extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(bShowPositivePercentage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bShowGroupTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 4, Short.MAX_VALUE))))
+                        .addGap(0, 4, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bIDVerification, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bOpenUserView, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(84, 84, 84))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(172, 172, 172)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +183,9 @@ public class AdminControlPanel extends javax.swing.JFrame {
                     .addComponent(bAddGroup))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bOpenUserView)
-                .addGap(50, 50, 50)
+                .addGap(21, 21, 21)
+                .addComponent(bIDVerification)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bShowGroupTotal)
                     .addComponent(bShowUserTotal))
@@ -306,10 +319,18 @@ public class AdminControlPanel extends javax.swing.JFrame {
                         / root.getNumberOfMessages(root)));
     }//GEN-LAST:event_bShowPositivePercentageActionPerformed
 
+    private void bIDVerificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIDVerificationActionPerformed
+        userGroupManager = new UserGroupManager();
+        JOptionPane.showMessageDialog(rootPane, "ID's are verified: "
+                + userGroupManager.areIDVerified(root));
+    
+    }//GEN-LAST:event_bIDVerificationActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAddGroup;
     private javax.swing.JButton bAddUser;
+    private javax.swing.JButton bIDVerification;
     private javax.swing.JButton bOpenUserView;
     private javax.swing.JButton bShowGroupTotal;
     private javax.swing.JButton bShowMessagesTotal;

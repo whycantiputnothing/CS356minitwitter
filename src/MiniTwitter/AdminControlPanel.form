@@ -26,14 +26,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <Component id="jScrollPane1" min="-2" pref="166" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="bOpenUserView" min="-2" pref="157" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="bShowMessagesTotal" pref="157" max="32767" attributes="0"/>
                           <Component id="bShowUserTotal" max="32767" attributes="0"/>
@@ -44,6 +39,14 @@
                           <Component id="bShowGroupTotal" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="bIDVerification" min="-2" pref="157" max="-2" attributes="0"/>
+                          <Component id="bOpenUserView" min="-2" pref="157" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -76,7 +79,9 @@
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="bOpenUserView" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <Component id="bIDVerification" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="bShowGroupTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bShowUserTotal" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -114,7 +119,7 @@
     </Container>
     <Component class="javax.swing.JTextField" name="textUserID">
       <Properties>
-        <Property name="text" type="java.lang.String" value="User ID"/>
+        <Property name="text" type="java.lang.String" value="UserID"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textUserIDActionPerformed"/>
@@ -122,7 +127,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textGroupID">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Group ID"/>
+        <Property name="text" type="java.lang.String" value="GroupID"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textGroupIDActionPerformed"/>
@@ -185,6 +190,15 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bShowPositivePercentageActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bIDVerification">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="ID Verification"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bIDVerificationActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

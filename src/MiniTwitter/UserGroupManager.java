@@ -1,132 +1,51 @@
-package MiniTwitter;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package MiniTwitter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * wanted to use this class instead of instance variables in admin control panel
- * but it got buggy so i discarded it.
+ *
  * @author Brandon-PC
  */
 public class UserGroupManager {
 
-    private UserGroup userGroup;
-    private int userCount;
-    private int groupCount;
+//    private UserGroup userGroup;
+    private Map<String, Integer> hashMap;
 
-    /**
-     *
-     */
-    public UserGroupManager() {
-        userGroup = new UserGroup("Root");
-        userCount = 0;
-        groupCount = 0; //do not count root userGroup in the total
-    }
-
-    /**
-     *
-     * @param s
-     */
-    public void addUser(String s) {
-        User user = new User(s);
-        addUser(user, userGroup);
-    }
-
-    /**
-     *
-     * @param u
-     * @param ug
-     */
-    public void addUser(User u, UserGroup ug) {
-        ug.addUser(u);
-        userCount++;
-    }
-
-    /**
-     *
-     * @param toAdd
-     * @param existing
-     */
-    public void addUserGroup(UserGroup toAdd, UserGroup existing) {
-        existing.addUserGroup(userGroup);
-        groupCount++;
-    }
-
-    /**
-     *
-     * @param s
-     * @return
-     */
-    public User findUser(String s) {
-        return userGroup.findUser(s, userGroup);
-    }
-
-    /**
-     *
-     * @param s
-     * @return
-     */
-    public UserGroup findUserGroup(String s) {
-        return userGroup.findUserGroup(s, userGroup);
-    }
+//    public UserGroupManager(UserGroup userGroup) {
+//        this.userGroup = userGroup;
+//        hashMap = new HashMap<>();
+//    }
     
-    /**
-     *
-     * @return
-     */
-    public int getNumberOfMessages() {
-        return userGroup.getNumberOfMessages(userGroup);
+    public UserGroupManager() {
+        hashMap = new HashMap<>();
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getUserCount() {
-        return userCount;
-    }
+    public boolean areIDVerified(UserGroup ug) {
+        if (!hashMap.containsKey(ug.getUniqueID()) && !ug.getUniqueID().contains(" ")
+                                                   && !ug.getUniqueID().equals("")){
+                hashMap.put(ug.getUniqueID(), 1);
+            } else {
+                return false;
+            }
+        for (User u : ug.getUsers()) {
+            if (!hashMap.containsKey(u.getUniqueID()) && !u.getUniqueID().contains(" ")
+                                                      && !u.getUniqueID().equals("")) {
+                hashMap.put(u.getUniqueID(), 1);
+            } else {
+                return false;
+            }
 
-    /**
-     *
-     * @param userCount
-     */
-    public void setUserCount(int userCount) {
-        this.userCount = userCount;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getGroupCount() {
-        return groupCount;
-    }
-
-    /**
-     *
-     * @param groupCount
-     */
-    public void setGroupCount(int groupCount) {
-        this.groupCount = groupCount;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public UserGroup getRoot() {
-        return userGroup;
-    }
-
-    /**
-     *
-     * @param userGroup
-     */
-    public void setUserGroup(UserGroup userGroup) {
-        this.userGroup = userGroup;
+        }
+        for (UserGroup ug1 : ug.getUserGroups()) {
+            areIDVerified(ug1);
+        }
+        return true;
     }
 
 }
