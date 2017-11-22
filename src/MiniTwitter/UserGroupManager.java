@@ -20,29 +20,28 @@ public class UserGroupManager {
 //    private UserGroup userGroup;
     private Map<String, Integer> IDHashMap;
     private Map<Long, String> userHashMap;
-    
 
 //    public UserGroupManager(UserGroup userGroup) {
 //        this.userGroup = userGroup;
 //        hashMap = new HashMap<>();
 //    }
-    
     public UserGroupManager() {
         IDHashMap = new HashMap<>();
         userHashMap = new HashMap<>();
-        
+
     }
 
     public boolean areIDVerified(UserGroup ug) {
+        boolean bool = true;
         if (!IDHashMap.containsKey(ug.getUniqueID()) && !ug.getUniqueID().contains(" ")
-                                                   && !ug.getUniqueID().equals("")){
-                IDHashMap.put(ug.getUniqueID(), 1);
-            } else {
-                return false;
-            }
+                && !ug.getUniqueID().equals("")) {
+            IDHashMap.put(ug.getUniqueID(), 1);
+        } else {
+            return false;
+        }
         for (User u : ug.getUsers()) {
             if (!IDHashMap.containsKey(u.getUniqueID()) && !u.getUniqueID().contains(" ")
-                                                      && !u.getUniqueID().equals("")) {
+                    && !u.getUniqueID().equals("")) {
                 IDHashMap.put(u.getUniqueID(), 1);
             } else {
                 return false;
@@ -50,28 +49,31 @@ public class UserGroupManager {
 
         }
         for (UserGroup ug1 : ug.getUserGroups()) {
-            areIDVerified(ug1);
+            bool = areIDVerified(ug1);
+            if (!bool) {
+                return false;
+            }
         }
         IDHashMap.clear();
-        return true;
+        return bool;
     }
-    
+
     public String lastUpdatedUser(UserGroup ug) {
         String user = "";
         List<Long> longList = new ArrayList<>();
         addUsers(ug);
         if (!userHashMap.isEmpty()) {
-            for(long l : userHashMap.keySet()) {
+            for (long l : userHashMap.keySet()) {
                 longList.add(l);
             }
             Collections.sort(longList);
-            user = userHashMap.get(longList.get(longList.size()-1));
-            
+            user = userHashMap.get(longList.get(longList.size() - 1));
+
         }
         userHashMap.clear();
         return user;
     }
-    
+
     public void addUsers(UserGroup ug) {
         for (User u : ug.getUsers()) {
             userHashMap.put(u.getLastUpdateTime(), u.getUniqueID());
