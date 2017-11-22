@@ -29,6 +29,7 @@ public class UserGroup implements UserMember{
         uniqueID = id;
         users = new ArrayList();
         userGroups = new ArrayList();
+        creationTime = System.currentTimeMillis();
     }
 
     /**
